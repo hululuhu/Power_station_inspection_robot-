@@ -1,0 +1,6 @@
+image: N301524mapnoimu.pgm
+resolution: 0.025
+origin: [-3.770926666259767, -6.669025897979736, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

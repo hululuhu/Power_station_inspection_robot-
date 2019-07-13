@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="/use_sim_time" value="true"/>
+     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find a_robot_platform)/launch/navigation.rviz" />
+</launch>

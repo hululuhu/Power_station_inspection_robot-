@@ -1,0 +1,4 @@
+<launch>
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find a_robot_platform)/launch/navigation.rviz"/>
+</launch>

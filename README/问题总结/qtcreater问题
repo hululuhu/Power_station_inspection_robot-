@@ -1,0 +1,101 @@
+ROS与C++入门教程-搭建开发环境(QT+ros_qtc_plugin)：
+安装：Ubuntu 16.04+ros_qtc_plugin+qt5.9.1:
+sudo add-apt-repository ppa:levi-armstrong/qt-libraries-xenial 
+sudo add-apt-repository ppa:levi-armstrong/ppa 
+sudo apt update && sudo apt install qt57creator 
+sudo apt install qt57creator-plugin-ros
+
+详细步骤：
+https://blog.csdn.net/u013453604/article/details/52186375#t12
+https://www.ncnynl.com/archives/201701/1277.html
+
+Qt creato  无法中文输入问题：
+Qt creator无法用fcitx输入中文的原因是自己的plugins目录下没有fcitx的插件，所有只要把插件复制到里面就可以了。
+qt creator插件目录：qt安装目录/Tools/QtCreator/lib/Qt/plugins/platforminputcontexts。
+需要的fcitx输入法插件文件：libfcitxplatforminputcontextplugin.so
+ 
+解决方法：
+使用dpkg查找插件文件，fcitx在fcitx-frontend-qt5中，没有就用apt安装即可。
+$ dpkg -L fcitx-frontend-qt5 | grep .so
+/usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so
+然后复制这个文件到QT Creator目录：
+$ cd qt安装目录/Tools/QtCreator/lib/Qt/plugins/platforminputcontexts/
+$ cp /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so .
+$ chomd +x libfcitxplatforminputcontextplugin.so
+然后重启QT Creator即可输入中文。
+ 
+编译程序后程序无法输入中文问题，也是缺少插件的原因。
+$ cd QT安装目录/5.8/gcc_64/plugins/platforminputcontexts
+$ cp /usr/lib/x86_64-linux-gnu/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so .
+$ chomd +x libfcitxplatforminputcontextplugin.so
+然后重新编译即可。
+
+
+qt导入一个与当前路径不同的创建已经存在的项目文件出现问题：
+必须将原工程中的：qt_client.pro.user删除；
+
+编译郑威师兄的qt上位机问题：基于Qt5.7.0 ，opencv-2.4.13(参考：安装完默认配置即可https://blog.csdn.net/u011557212/article/details/54706966?utm_source=itdadao&utm_medium=referral)
+编译过程中找不到#include <QtNetwork>等头文件问题：修改.pro文件：
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-12-25T16:02:02
+#
+#-------------------------------------------------
+
+QT       += core \
+            gui \
+            network
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets  printsupport
+
+TARGET = qt_client
+TEMPLATE = app
+
+QMAKE_CXXFLAGS += -std=c++0x
+CONFIG += c++11
+
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    ../key_control.cpp \
+    ../tcp_socket.cpp \
+    ../../common/paras.cpp \
+    ../../common/modbus.cpp \
+    ../../common/map_image.cpp \
+    ../udp_socket.cpp \
+    ../../server/tcpsocketserver.cpp \
+    ../../nav/nav.cpp
+
+
+HEADERS  += mainwindow.h \
+    ../key_control.h \
+    ../tcp_socket.h \
+    ../../common/common.h \
+    ../../common/paras.h \
+    ../../common/modbus.h\
+    ../../common/use_display.h \
+    ../../common/map_image.h \
+    ../udp_socket.h \
+    ../../server/uartlaser.h \
+    ../../server/uartdriver.h \
+    ../../server/tcpsocketserver.h \
+    ../../nav/nav.h
+
+
+FORMS    += mainwindow.ui
+
+INCLUDEPATH += /opt/ros/kinetic/include
+
+INCLUDEPATH += /usr/local/include \
+               /usr/local/include/opencv \
+               /usr/local/inlcude/opencv2 \
+
+LIBS += -L/usr/local/lib/ -lopencv_highgui -lopencv_core -lopencv_imgproc \
+                          -lopencv_legacy -lopencv_features2d -lopencv_nonfree \
+                          -lopencv_flann
+
+若提示找不到ros相关的头文件：
+添加：INCLUDEPATH += /opt/ros/kinetic/include
+
+
+

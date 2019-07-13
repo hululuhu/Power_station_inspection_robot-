@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "a"
+
+source ~/distributed_robot_sys/sh/aa.sh

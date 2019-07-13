@@ -1,0 +1,43 @@
+1 Cartographer:
+  catkin_make_isolated --install --use-ninja
+2 保存地图：
+  source googleMapping/install_isolated/setup.bash
+  rosservice call /finish_trajectory "stem: 'gtest'"
+
+2 官网下载Cartographer ROS包，不能按照官网的，在网络通畅，git ：git clone：
+    Failed to connect to localhost port 1080: 拒绝连接
+     查询是否使用代理：git config --global http.proxy
+     取消代理：git config --global --unset http.proxy
+
+3  无法用catkin_make_isolated --install --use-ninja编译上一版本的Cartographer包：
+ 解决方案：先按照官网的步骤编译安装完成后，删除编译好的源码包，在将上一版本的源码包src包拷贝到当前目录下，执行catkin_make_isolated --install --use-ninja编译，
+ 为何要这样我推断是在按照官网进行编译的过程中会设置环境或者下载依赖的源码包
+
+4  问题： 
+ Found gmock: gmock and gtests will be built
+  CMake Error at /opt/ros/kinetic/share/catkin/cmake/test/gtest.cmake:381 (add_library):
+  add_library cannot create imported target "gmock" because another target
+  with the same name already exists.
+  Call Stack (most recent call first):
+  /opt/ros/kinetic/share/catkin/cmake/all.cmake:147 (include)
+  /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:35 (find_package)
+CMake Error at /opt/ros/kinetic/share/catkin/cmake/test/gtest.cmake:383 (add_library):
+  add_library cannot create imported target "gmock_main" because another
+  target with the same name already exists.
+Call Stack (most recent call first):
+  /opt/ros/kinetic/share/catkin/cmake/all.cmake:147 (include)
+  /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:35 (find_package)
+解决：
+   在Cartographer_ros包的 CMakeLists.txt中加： 
+   include_directories(include
+    ${yamlcpp_INCLUDE_DIRS}   //师兄的代码包
+    ${catkin_INCLUDE_DIRS})
+
+[FATAL] [1523760171.177902440]: F0415 10:42:51.000000 10037 imu_tracker.cc:66] Check failed: (orientation_ * gravity_vector_).z() > 0. (nan vs. 0)
+
+5 未解决：
+ [FATAL] [1523530659.762869698]: F0412 18:57:39.000000 18412 lua_parameter_dictionary.cc:83] Check failed: status == 0 (2 vs. 0) [string "include  "map_builder.lua"..."]:30: attempt to index global 'SPARSE_POSE_GRAPH' (a nil value)
+  目前解决办法是沿用上一版本的包，编译运行，沿用原来的.lua文件
+

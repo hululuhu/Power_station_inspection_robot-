@@ -1,0 +1,6 @@
+image: map524.pgm
+resolution: 0.025
+origin: [-3.794023323059083, -5.211402130126954, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

@@ -1,0 +1,6 @@
+image: N301map524F.pgm
+resolution: 0.025
+origin: [-3.609926795959474, -5.565477657318116, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

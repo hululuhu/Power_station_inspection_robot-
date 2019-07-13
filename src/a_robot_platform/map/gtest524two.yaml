@@ -1,0 +1,6 @@
+image: gtest524two.pgm
+resolution: 0.025
+origin: [-2.651859092712403, -5.501084995269776, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

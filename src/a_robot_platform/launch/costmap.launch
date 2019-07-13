@@ -1,0 +1,25 @@
+<launch>
+
+  <param name="/use_sim_time" value="false"/>
+
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /laser_link 40" />
+
+ <node name="static_tf0" pkg="tf" type="static_transform_publisher" args="2 0 0 0 0 0 /map /base_link 100"/>
+
+ <node name="rviz" pkg="rviz" type="rviz" args="-d $(find a_robot_platform)/launch/navigation.rviz"/>
+
+
+<!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server"  args="$(find a_robot_platform)/map/N301524mapnoimu.yaml"/>
+
+  <!-- Run the costmap node -->
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="$(find a_robot_platform)/launch/costmap/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find a_robot_platform)/launch/costmap/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find a_robot_platform)/launch/costmap/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find a_robot_platform)/launch/costmap/global_costmap_params.yaml" command="load" />
+  </node>
+
+</launch>

@@ -1,0 +1,6 @@
+image: N301524mapS.pgm
+resolution: 0.025
+origin: [-3.498165512084961, -5.643398666381836, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

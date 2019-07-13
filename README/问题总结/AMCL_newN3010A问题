@@ -1,0 +1,5 @@
+1、修改urdf文件lase_link坐标系相对于base_link为0度方向
+2、修改location.launch文件，机器人运动定位，出现激光数据卡顿，原因 laser_max_beams设置过大，计算量过大造成
+2、扫描匹配点与局部子图与机器人正方向相反，原因是lase_link修该为相对于base_link为0度，但scan_processor.cpp中将激光数据转换到数据容器
+函数中：LaserScanToDataContainer（）中：dataContainer.add(Eigen::Vector2f(cos(angle) * dist, sin(angle) * dist));前加了个-号转向了
+解决：把-去除。

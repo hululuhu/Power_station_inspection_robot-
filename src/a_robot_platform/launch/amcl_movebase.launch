@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find a_robot_platform)/launch/navigation.rviz"/>
+
+  <!-- Run the map server -->
+   <node name="map_server" pkg="map_server" type="map_server" args= "$(find a_robot_platform)/map/N301524mapnoimu.yaml" output="screen"/>
+
+  <include file="$(find a_robot_platform)/launch/ros_AMCL/amcl_diff.launch" >
+  </include> 
+</launch>

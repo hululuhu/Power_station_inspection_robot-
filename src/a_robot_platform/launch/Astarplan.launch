@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+<node name="main_Astar" pkg="a_robot_platform" type="main_Astar" args= "$(find a_robot_platform)/map/gtest524two.pgm" output="screen"> 
+</node>
+
+</launch>

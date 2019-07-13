@@ -1,0 +1,21 @@
+1、catkin_make 提示：
+  对‘cv::imread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int)’未定义的引用
+解决在CmakeLists.txt中添加：
+  set(OpenCV_DIR /usr/local/share/OpenCV)
+  message(STATUS "    version: ${OpenCV_VERSION}")
+  
+  find_package(catkin  REQUIRED COMPONENTS
+  OpenCV REQUIRED
+  roscpp
+  sensor_msgs
+  std_msgs
+)
+
+  include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+
+
+2、 OpenCV Error: Assertion failed (size.width>0 && size.height>0) in cv::imshow
+  解决：图片路径设置不正确

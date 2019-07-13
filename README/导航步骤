@@ -1,0 +1,23 @@
+基于A*全局+局部路径规划、导航
+1、hulu@hulu-E6400:~$ ssh 192.168.123.40 -l hustac
+   hulu@hulu-E6400:~$ cd  ros/zw/distributed_robot_sys/
+   hulu@hulu-E6400:~$ bash  sh/robot_config.sh
+   hulu@hulu-E6400:~$ bash  sh/location_rviz.sh
+   hulu@hulu-E6400:~$ bash  sh/location.sh
+   hulu@hulu-E6400:~$ source devel/setup.bash
+   hulu@hulu-E6400:~$ rosrun  a_robot_platform main_Astar
+基于move_bash的全局加局部导航
+2、hulu@hulu-E6400:~$ ssh 192.168.123.40 -l hustac
+   hulu@hulu-E6400:~$ cd  ros/zw/distributed_robot_sys/
+   hulu@hulu-E6400:~$ bash  sh/robot_config.sh
+   hulu@hulu-E6400:~$ roslaunch a_robot_platform myrobot_world.launch
+   hulu@hulu-E6400:~$ bash  sh/location.sh
+   hulu@hulu-E6400:~$ export ROS_MASTER_URI=http://hulu-E6400:11311     
+   hulu@hulu-E6400:~$ roslaunch a_robot_platform move_base.launch
+基于gazebo环境的导航仿真：
+3、hulu@hulu-E6400:~$ cd /ros/effective_ws
+   hulu@hulu-E6400:~$ source devel/setup.bash
+   hulu@hulu-E6400:~$ roslaunch nav_sim myrobot_world.launch
+   hulu@hulu-E6400:~$ roslaunch nav_sim move_base.launch
+
+

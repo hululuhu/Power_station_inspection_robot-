@@ -1,0 +1,16 @@
+hector_slam (适用于室内特征复杂场景激光设置范围在0.1~3.0m，同时完美适用于走廊建图，激光范围0.0~30.0m)
+建立地图： source devel/setup.bash
+          roslaunch  a_robot_platform slam.launch
+保存地图：rosrun map_server map_saver -f hectormap524
+
+gmapping_slam（室内与走廊都可建图，但建图效果不好，会出现地图弯曲）
+建立地图：source devel/setup.bash
+          roslaunch a_robot_platform gmapping.launch
+保存地图：rosrun map_server map_saver -f gmappingmap524
+
+Cartographer_slam (室内特征复杂场景建图效果好激光设置范围0.1~3.0m，室外如走廊特征较少的建图可能会失败0.0~30.0m)
+建立地图： bash  sh/google_mapping.sh
+保存地图： source googleMapping/install_isolated/setup.bash
+          rosservice call /finish_trajectory "stem: 'gtest'" 
+ 
+

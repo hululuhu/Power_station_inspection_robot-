@@ -1,0 +1,11 @@
+<launch>
+
+    <param name="/use_sim_time" value="false"/>
+
+    <include file="$(find a_robot_platform)/launch/hector/hector_mapping.launch"/>
+    <include file="$(find a_robot_platform)/launch/hector/geotiff_mapper.launch">
+      <arg name="trajectory_source_frame_name" value="base_link"/>
+    </include>
+
+ </launch>
+
